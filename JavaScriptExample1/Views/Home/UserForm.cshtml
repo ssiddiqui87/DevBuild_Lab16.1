@@ -49,7 +49,7 @@
 
     function validateForm() {
         let result = validateFirstName() & validateLastName() & validateEmail() & validatePassword() & validateConfirmPassword();
-        debugger;
+        //debugger;
         if (!result) {
             document.querySelector("#Feedback").innerHTML = "<strong>Your form has errors. See above.</strong>";
             return false;
