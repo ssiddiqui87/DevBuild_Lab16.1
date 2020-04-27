@@ -1,0 +1,135 @@
+﻿@model JavaScriptExample1.Models.Product
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+<style>
+    .red {
+        color: red;
+    }
+</style>
+
+<h1>Product</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Product" method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label class="control-label" for="Name" id="NameLabel">Name</label>
+                <input class="form-control" type="text" id="Name" name="Name" value="" />
+                <span class="text-danger field-validation-valid" id="NameFeedback"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Category" id="CategoryLabel">Category</label>
+                <input class="form-control" type="text" id="Category" name="Category" value="" />
+                <span class="text-danger field-validation-valid" id="CategoryFeedback"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="QuantityInStock" id="QtyLabel">QuantityInStock</label>
+                <input class="form-control" type="number" id="QuantityInStock" name="QuantityInStock" value="" />
+                <span class="text-danger field-validation-valid" id="QtyFeedback"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Price" id="PriceLabel">Price</label>
+                <input class="form-control" type="number" id="Price" name="Price" value="" />
+                <span class="text-danger field-validation-valid" id="PriceFeedback"></span>
+            </div>
+            <div id="Feedback"></div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        let result = validateName() & validateCategory() & validateQuantity();
+
+        if (!result) {
+            document.querySelector("#Feedback").innerHTML = "Your form has errors. See above.";
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validateName() {
+        let name = document.querySelector("#Name").value;
+        let warning = '';
+
+        if (!name || name.length < 3) {
+            warning += 'Name is empty or too short. ';
+        } else if (name.length > 30) {
+            warning += 'Name is too long. ';
+        }
+
+        if (warning == '') {
+            document.querySelector("#NameLabel").classList.remove('red');
+            document.querySelector("#NameFeedback").innerHTML = '';
+            return true;
+        } else {
+            //display the warning in the span set up for it
+            document.querySelector("#NameFeedback").innerHTML = warning;
+            //add a CSS class to an element
+            document.querySelector("#NameLabel").classList.add('red');
+            return false;
+        }
+    }
+
+    function validateCategory() {
+        //debugger;
+        let category = document.querySelector("#Category").value;
+        let warning = '';
+
+        if (!category || category.length < 5) {
+            warning += 'Category is empty or too short. ';
+        } else if (category.length > 20) {
+            warning += 'Category is too long. ';
+        }
+
+        console.log("In validateCategory");
+        console.log(warning);
+
+        if (warning == '') {
+            document.querySelector("#CategoryLabel").classList.remove('red');
+            document.querySelector("#CategoryFeedback").innerHTML = '';
+            return true;
+        } else {
+            //display the warning in the span set up for it
+            document.querySelector("#CategoryFeedback").innerHTML = warning;
+            //add a CSS class to an element
+            document.querySelector("#CategoryLabel").classList.add('red');
+            return false;
+        }
+    }
+
+    function validateQuantity() {
+        let quantity = document.querySelector("#QuantityInStock").value;
+        let warning = '';
+
+        if (!quantity) { //0 is '0'
+            warning += 'Quantity cannot be blank.';
+        } else if (quantity < 0) { //numerical comparison forces it to parse to a number
+            warning += 'Quantity cannot be negative.';
+        }
+
+        //advanced: catch if it's non-integer
+
+        if (warning == '') {
+            document.querySelector("#QtyLabel").classList.remove('red');
+            document.querySelector("#QtyFeedback").innerHTML = '';
+            return true;
+        } else {
+            //display the warning in the span set up for it
+            document.querySelector("#QtyFeedback").innerHTML = warning;
+            //add a CSS class to an element
+            document.querySelector("#QtyLabel").classList.add('red');
+            return false;
+        }
+    }
+
+</script>
