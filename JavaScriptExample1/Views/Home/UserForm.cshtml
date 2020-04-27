@@ -37,7 +37,7 @@
                 <span class="text-danger field-validation-valid" id="ConfirmPasswordFeedback"></span>
             </div>
             <div id="Feedback"></div>
-            <br/>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -68,12 +68,12 @@
         }
 
         if (warning == '') {
-            document.querySelector("#fNameLabel").classList.remove('text-danger');
+
             document.querySelector("#fNameFeedback").innerHTML = '';
             return true;
         } else {
             document.querySelector("#fNameFeedback").innerHTML = warning;
-            document.querySelector("#fNameLabel").classList.add('text-danger');
+
             return false;
         }
     }
